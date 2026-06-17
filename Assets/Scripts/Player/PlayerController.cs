@@ -5,7 +5,11 @@ using UnityEngine;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 4.0f;
+    public string playerName = "Hero";
+    public int playerHp = 10;
+    public bool canMove = true;
+    public float moveSpeed = 3.0f;
+
     float moveDirection = 0.0f;
 
     /// <summary>
@@ -13,7 +17,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Start()
     {
+        // Debug.Log : 콘솔창에 메시지를 출력해주는 유니티 제공 함수.
         Debug.Log("이것은 나의 게임 프로그래밍이다!!!");
+        Debug.Log("플레이어 이름: " + playerName);
     }
 
     /// <summary>
@@ -22,7 +28,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         CheckInput();
-        Move();
+
+        if(canMove == true)
+        {
+            Move();
+        }
     }
 
     void CheckInput()
