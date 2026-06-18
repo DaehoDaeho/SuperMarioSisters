@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         CheckInput();
 
-        if(canMove == true)
+        if (canMove == true)
         {
             Move();
         }
