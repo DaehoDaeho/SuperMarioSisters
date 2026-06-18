@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
         {
             Move();
         }
+        else
+        {
+            Debug.Log("이동할 수 없다");
+        }
     }
 
     void CheckInput()
@@ -42,25 +46,34 @@ public class PlayerController : MonoBehaviour
         // 오른쪽 방향키를 누르고 있는지 체크.
         if (Input.GetKey(KeyCode.RightArrow) == true)
         {
+            Debug.Log("오른쪽 키를 누르고 있다.");
             moveDirection = 1.0f;
         }
 
         // 왼쪽 방향키를 누르고 있는지 체크.
         if (Input.GetKey(KeyCode.LeftArrow) == true)
         {
+            Debug.Log("왼쪽 키를 누르고 있다.");
             moveDirection = -1.0f;
         }
 
         // A 키를 누르고 있는지 체크.
         if (Input.GetKey(KeyCode.A) == true)
         {
+            Debug.Log("왼쪽 키를 누르고 있다.");
             moveDirection = -1.0f;
         }
 
         // D 키를 누르고 있는지 체크.
         if (Input.GetKey(KeyCode.D) == true)
         {
+            Debug.Log("오른쪽 키를 누르고 있다.");
             moveDirection = 1.0f;
+        }
+
+        if(Input.GetKey(KeyCode.Space) == true)
+        {
+            Debug.Log("스페이크 키 입력 확인!!!!!");
         }
     }
 
