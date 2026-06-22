@@ -82,5 +82,8 @@ public class PlayerController : MonoBehaviour
         // 좌우 이동 방향을 만드는 코드.
         Vector3 move = new Vector3(moveDirection, 0.0f, 0.0f);
         transform.position += move * moveSpeed * Time.deltaTime;
+
+        Debug.Log("Position X: " + transform.position.x);
+        Debug.Log("Position Y: " + transform.position.y);
     }
 }
