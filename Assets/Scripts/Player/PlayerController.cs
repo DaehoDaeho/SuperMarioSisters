@@ -12,18 +12,19 @@ public class PlayerController : MonoBehaviour
 
     float moveDirection = 0.0f;
 
+    Rigidbody2D playerBody;
+    Collider2D playerCollider;
+    SpriteRenderer spriteRenderer;
+
     /// <summary>
     /// 게임이 실행될 때 한 번 호출되는 함수.
     /// </summary>
     void Start()
     {
-        // Debug.Log : 콘솔창에 메시지를 출력해주는 유니티 제공 함수.
-        //Debug.Log("이것은 나의 게임 프로그래밍이다!!!");
-        //Debug.Log("플레이어 이름: " + playerName);
-
-        Debug.Log("result = " + AddNumbers(3, 4));
-        PrintMessage("반갑습니다!!!!");
-        PrintMessage("안녕히 가세요!!!");
+        // GetComponent는 게임 오브젝트에 붙어 있는 컴포넌트를 가져오기 위한 함수.
+        playerBody = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<Collider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -89,8 +90,12 @@ public class PlayerController : MonoBehaviour
     void Move()
     {
         // 좌우 이동 방향을 만드는 코드.
-        Vector3 move = new Vector3(moveDirection, 0.0f, 0.0f);
-        transform.position += move * moveSpeed * Time.deltaTime;
+        //Vector3 move = new Vector3(moveDirection, 0.0f, 0.0f);
+        //transform.position += move * moveSpeed * Time.deltaTime;
+
+        // playerBody.linearVelocity
+        // 오브젝트가 현재 어느 방향으로 얼마나 빠르게 움직이는지를 나타내는 속도값.
+        playerBody.linearVelocity = new Vector2(moveDirection * moveSpeed, 0.0f);
     }
 
     int AddNumbers(int number1, int number2)
