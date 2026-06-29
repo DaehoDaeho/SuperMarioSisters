@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     Collider2D playerCollider;
     SpriteRenderer spriteRenderer;
 
+    bool isGrounded;    // 플레이어가 현재 바닥에 닿아 있는가를 저장하는 변수.
+
     /// <summary>
     /// 게임이 실행될 때 한 번 호출되는 함수.
     /// </summary>
@@ -81,9 +83,12 @@ public class PlayerController : MonoBehaviour
             moveDirection = 1.0f;
         }
 
-        if(Input.GetKey(KeyCode.Space) == true)
+        if(Input.GetKeyDown(KeyCode.Space) == true)
         {
-            //Debug.Log("스페이크 키 입력 확인!!!!!");
+            if(isGrounded == true)
+            {
+                // 점프 기능 추가.
+            }
         }
     }
 
@@ -95,18 +100,16 @@ public class PlayerController : MonoBehaviour
 
         // playerBody.linearVelocity
         // 오브젝트가 현재 어느 방향으로 얼마나 빠르게 움직이는지를 나타내는 속도값.
-        playerBody.linearVelocity = new Vector2(moveDirection * moveSpeed, 0.0f);
+        playerBody.linearVelocity = new Vector2(moveDirection * moveSpeed, playerBody.linearVelocity.y);
     }
 
-    int AddNumbers(int number1, int number2)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        int result = number1 + number2;
-        
-        return result;
+        isGrounded = true;
     }
 
-    void PrintMessage(string message)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log(message);
+        isGrounded = false;
     }
 }
