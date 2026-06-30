@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     public float moveSpeed = 3.0f;
 
+    public float jumpPower = 7.0f;
+
     float moveDirection = 0.0f;
 
     Rigidbody2D playerBody;
@@ -36,6 +38,8 @@ public class PlayerController : MonoBehaviour
     {
         CheckInput();
 
+        Jump();
+
         if (canMove == true)
         {
             Move();
@@ -43,11 +47,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             //Debug.Log("이동할 수 없다");
-        }
-
-        if(Input.GetKeyDown(KeyCode.P) == true)
-        {
-            //Debug.Log("현재 위치: " + transform.position);
         }
     }
 
@@ -82,14 +81,6 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("오른쪽 키를 누르고 있다.");
             moveDirection = 1.0f;
         }
-
-        if(Input.GetKeyDown(KeyCode.Space) == true)
-        {
-            if(isGrounded == true)
-            {
-                // 점프 기능 추가.
-            }
-        }
     }
 
     void Move()
@@ -103,13 +94,35 @@ public class PlayerController : MonoBehaviour
         playerBody.linearVelocity = new Vector2(moveDirection * moveSpeed, playerBody.linearVelocity.y);
     }
 
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) == true)
+        {
+            if (isGrounded == true)
+            {
+                Vector2 velocity = playerBody.linearVelocity;
+                velocity.y = jumpPower;
+                playerBody.linearVelocity = velocity;
+
+                isGrounded = false;
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isGrounded = true;
+        // CompareTag : 해당 오브젝트의 Tag 정보가 일치하는지 비교하는 함수.
+        if (collision.gameObject.CompareTag("Ground") == true)
+        {
+            isGrounded = true;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        isGrounded = false;
+        if (collision.gameObject.CompareTag("Ground") == true)
+        {
+            isGrounded = false;
+        }
     }
 }
