@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour
 
     public float jumpPower = 7.0f;
 
+    public Transform groundCheck;
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
+
     float moveDirection = 0.0f;
 
     Rigidbody2D playerBody;
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void Update()
     {
+        CheckGround();
         CheckInput();
 
         Jump();
@@ -109,18 +114,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void CheckGround()
     {
-        // CompareTag : 해당 오브젝트의 Tag 정보가 일치하는지 비교하는 함수.
-        if (collision.gameObject.CompareTag("Ground") == true)
+        // Physics2D.OverlapCircle : 충돌 체크를 위해 가상의 원을 그려주는 함수.
+        Collider2D ground = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        // null : 아무것도 아닌 데이터.
+        if(ground != null)  // 플레이어의 발 아래에 바닥이 있다면.
         {
             isGrounded = true;
         }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground") == true)
+        else
         {
             isGrounded = false;
         }
